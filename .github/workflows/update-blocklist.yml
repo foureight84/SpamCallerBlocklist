@@ -28,7 +28,8 @@ jobs:
 
       - name: Run Aggregator
         env:
-          FTC_API_KEY: ${{ secrets.FTC_API_KEY }}
+          FTC_API_KEY: ${{ secrets.FTC_API_KEY || secrets.FCC_DONOTCALL_API_KEY }}
+          FCC_DONOTCALL_API_KEY: ${{ secrets.FCC_DONOTCALL_API_KEY }}
         run: |
           DAYS="${{ github.event.inputs.days || '30' }}"
           python3 scripts/aggregate.py --days "$DAYS" --output-dir dist
