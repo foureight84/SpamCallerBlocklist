@@ -1,0 +1,46 @@
+name: Update Spam Caller Blocklist
+
+on:
+  schedule:
+    # Run every Sunday at 13:00 UTC (shortly after federal weekend complaint updates)
+    - cron: '0 13 * * 0'
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Sliding TTL window in days'
+        required: false
+        default: '30'
+
+permissions:
+  contents: write
+
+jobs:
+  update-blocklist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Aggregator
+        env:
+          FTC_API_KEY: ${{ secrets.FTC_API_KEY }}
+        run: |
+          DAYS="${{ github.event.inputs.days || '30' }}"
+          python3 scripts/aggregate.py --days "$DAYS" --output-dir dist
+
+      - name: Commit and push updated blocklist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/
+          if git diff --staged --quiet; then
+            echo "No changes detected in blocklist."
+          else
+            git commit -m "Auto-update spam caller blocklist ($(date -u +'%Y-%m-%d'))"
+            git push
+          fi
