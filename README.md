@@ -43,16 +43,38 @@ Each entry in the metadata file includes a confidence score:
 
 ---
 
-## Data Sources
+## Data Sources & Citations
 
-1. **FCC Consumer Complaints Database (`opendata.fcc.gov`):**
-   * Dataset: `3xyp-aqkj` (Unwanted Calls).
-   * Updated nightly by the FCC Consumer and Governmental Affairs Bureau.
-2. **FTC Do Not Call (DNC) Reported Calls API (`api.ftc.gov`):**
-   * Endpoint: `/v0/dnc-complaints`.
-   * Updated every weekday at noon ET with consumer robocall violation complaints.
-3. **Verified Community Blocklists:**
-   * Curated open-source autodialer and AI caller lists.
+This blocklist aggregates and normalizes data from the following public regulatory and community sources:
+
+### 1. Federal Communications Commission (FCC)
+* **Agency:** US Federal Communications Commission (FCC) — Consumer and Governmental Affairs Bureau (CGB)
+* **Dataset Title:** *Consumer Complaints Data: Unwanted Calls*
+* **Dataset Identifier (Socrata 4x4 UID):** [`3xyp-aqkj`](https://opendata.fcc.gov/Consumer/CGB-Consumer-Complaints-Data/3xyp-aqkj)
+* **API Documentation & Endpoint:** `https://opendata.fcc.gov/resource/3xyp-aqkj.json`
+* **Query Filter:** `$where=issue='Unwanted Calls'`
+* **Update Frequency:** Updated nightly.
+* **Public Domain Notice:** United States Government Work (17 U.S.C. § 105; Public Domain).
+
+### 2. Federal Trade Commission (FTC)
+* **Agency:** US Federal Trade Commission (FTC)
+* **Dataset Title:** *Do Not Call (DNC) Reported Calls Data API*
+* **Developer Portal:** [FTC Developer Portal](https://www.ftc.gov/developer)
+* **API Key Registration:** [api.data.gov Signup](https://api.data.gov/signup/)
+* **API Endpoint:** `https://api.ftc.gov/v0/dnc-complaints`
+* **Interactive Data Portal:** [FTC Explore Data (Do Not Call Data)](https://www.ftc.gov/exploredata)
+* **Update Frequency:** Updated every business day at 12:00 PM ET.
+* **Public Domain Notice:** United States Government Work (17 U.S.C. § 105; Public Domain).
+
+### 3. Open-Source Community Lists
+* **AI-Number-Blocklist:**
+  * **Repository:** [Shalom-Karr/AI-Number-Blocklist](https://github.com/Shalom-Karr/AI-Number-Blocklist)
+  * **Direct Feed:** `https://raw.githubusercontent.com/Shalom-Karr/AI-Number-Blocklist/main/blacklist.txt`
+  * **Description:** Crowd-curated collection of phone numbers associated with automated AI voice bots, telemarketers, and autodialers.
+
+### 4. Telephony Standards & Reference Authorities
+* **Numbering Standard:** International Telecommunication Union (ITU-T E.164) & North American Numbering Plan Administrator (NANPA).
+* **Validation Standard:** Strict NANP 10-digit validation (`+1[2-9]XX[2-9]XXXXXX`) rejecting unassigned area codes, 555 numbers, and N11 emergency/service codes.
 
 ---
 
