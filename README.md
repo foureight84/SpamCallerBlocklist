@@ -2,7 +2,7 @@
 
 An automated, normalized, open-source spam caller blocklist aggregating official US federal regulatory datasets (FCC Unwanted Calls, FTC Do Not Call complaints) and open community sources.
 
-Updated weekly via automated GitHub Actions with a **30-day sliding TTL window** to eliminate stale entries and protect reassigned numbers.
+Updated daily via automated GitHub Actions with a **30-day sliding TTL window** to eliminate stale entries and protect reassigned numbers.
 
 ---
 
@@ -82,7 +82,7 @@ This blocklist aggregates and normalizes data from the following public regulato
 
 ### Bash / Cron Lookup
 ```bash
-# Download the latest blocklist once weekly
+# Download the latest blocklist once daily
 curl -s -O https://raw.githubusercontent.com/<OWNER>/SpamCallerBlocklist/main/dist/blocklist.txt
 
 # Instant lookup using grep
