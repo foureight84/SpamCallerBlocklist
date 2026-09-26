@@ -2,8 +2,8 @@ name: Update Spam Caller Blocklist
 
 on:
   schedule:
-    # Run daily at 18:00 UTC (2:00 PM ET / 11:00 AM PT, shortly after FTC daily noon updates)
-    - cron: '0 18 * * *'
+    # Run daily at 18:15 UTC (2:15 PM ET / 11:15 AM PT, providing a buffer and avoiding top-of-hour queue congestion)
+    - cron: '15 18 * * *'
   workflow_dispatch:
     inputs:
       days:
